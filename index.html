@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kertas & Kayu — Studio Alat Tulis Buatan Tangan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f1ecdc;
+    --panel: #e4dcc3;
+    --panel-2: #d9cfae;
+    --ink: #26241d;
+    --ink-dim: #6b6656;
+    --teal: #1f4f45;
+    --ochre: #c08a2e;
+    --line: rgba(38,36,29,0.12);
+    --radius: 10px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+  }
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--teal); color:var(--bg); }
+  :focus-visible{ outline:2px solid var(--teal); outline-offset:3px; }
+
+  .wrap{ max-width:1140px; margin:0 auto; padding:0 32px; }
+  .serif{ font-family:'Fraunces', serif; }
+
+  /* ---------- NAVBAR (Flexbox) ---------- */
+  header{
+    position:sticky; top:0; z-index:60;
+    background:rgba(241,236,220,0.92); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 32px;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .brand{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:600;
+    font-size:1.35rem;
+    display:flex; align-items:center; gap:10px;
+  }
+  .brand .mark{
+    width:12px; height:12px; background:var(--ochre); border-radius:2px; transform:rotate(45deg);
+  }
+  .nav-links{
+    display:flex;
+    gap:32px;
+    font-size:0.92rem;
+    color:var(--ink-dim);
+  }
+  .nav-links a{ position:relative; padding:4px 0; transition:color .25s ease; }
+  .nav-links a::after{ content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--ochre); transition:width .3s ease; }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{
+    background:var(--teal); color:var(--bg);
+    padding:10px 20px; border-radius:999px; font-size:0.85rem;
+    transition:background .25s ease, transform .25s ease;
+  }
+  .nav-cta:hover{ background:#163d35; transform:translateY(-2px); }
+  .menu-toggle{
+    display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px;
+  }
+  .menu-toggle span{ width:22px; height:2px; background:var(--ink); display:block; }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:76px 0 64px; display:flex; align-items:center; gap:48px; flex-wrap:wrap; }
+  .hero-copy{ flex:1 1 420px; }
+  .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:0.76rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal); display:block; margin-bottom:16px; }
+  h1{ font-family:'Fraunces', serif; font-weight:600; font-style:italic; font-size:clamp(2.1rem, 4.4vw, 3.1rem); line-height:1.12; margin-bottom:20px; }
+  h1 em{ color:var(--ochre); font-style:normal; }
+  .hero-copy p{ color:var(--ink-dim); max-width:440px; font-size:1rem; margin-bottom:28px; }
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn-teal, .btn-line{
+    padding:13px 24px; border-radius:999px; font-size:0.88rem; font-weight:500;
+    display:inline-flex; align-items:center; gap:8px; transition:all .25s ease;
+  }
+  .btn-teal{ background:var(--teal); color:var(--bg); }
+  .btn-teal:hover{ transform:translateY(-2px); box-shadow:0 10px 22px rgba(31,79,69,0.28); }
+  .btn-line{ box-shadow:inset 0 0 0 1px var(--line); color:var(--ink); }
+  .btn-line:hover{ box-shadow:inset 0 0 0 1px var(--teal); }
+
+  /* Stack of notebooks illustration */
+  .hero-art{ flex:1 1 260px; display:flex; justify-content:center; }
+  .stack{ position:relative; width:220px; height:230px; }
+  .book{
+    position:absolute; width:190px; height:130px; border-radius:6px;
+    box-shadow:0 14px 26px rgba(38,36,29,0.18);
+    transition:transform .4s ease;
+  }
+  .book.b1{ background:var(--teal); top:70px; left:10px; transform:rotate(-6deg); }
+  .book.b2{ background:var(--ochre); top:35px; left:22px; transform:rotate(4deg); }
+  .book.b3{ background:var(--panel-2); top:0; left:6px; transform:rotate(-2deg); border:1px solid var(--line); }
+  .stack:hover .book.b1{ transform:rotate(-10deg) translateY(6px); }
+  .stack:hover .book.b2{ transform:rotate(7deg) translateY(-4px); }
+  .stack:hover .book.b3{ transform:rotate(-4deg) translateY(-10px); }
+  .book::after{ content:''; position:absolute; left:16px; top:14px; bottom:14px; width:2px; background:rgba(241,236,220,0.5); }
+
+  /* ---------- SECTION HEAD ---------- */
+  .section{ padding:70px 0; }
+  .section-head{ max-width:520px; margin-bottom:44px; }
+  .section-head h2{ font-family:'Fraunces', serif; font-style:italic; font-size:2rem; margin-bottom:12px; }
+  .section-head p{ color:var(--ink-dim); font-size:0.96rem; }
+
+  /* ---------- 3 CARD CONTENT (Flexbox) ---------- */
+  .cards{
+    display:flex;
+    gap:26px;
+    flex-wrap:wrap;
+  }
+  .card{
+    flex:1 1 300px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:32px 28px;
+    display:flex;
+    flex-direction:column;
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  .card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 34px rgba(38,36,29,0.14);
+    border-color:var(--ochre);
+  }
+  .card-icon{
+    width:48px; height:48px; border-radius:50%;
+    background:var(--bg); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.3rem; margin-bottom:22px; color:var(--teal);
+    transition:background .3s ease, transform .3s ease;
+  }
+  .card:hover .card-icon{ background:var(--ochre); color:var(--bg); transform:rotate(-8deg); }
+  .card h3{ font-family:'Fraunces', serif; font-size:1.3rem; margin-bottom:10px; }
+  .card p{ color:var(--ink-dim); font-size:0.92rem; margin-bottom:22px; flex-grow:1; }
+  .card-footer{ display:flex; justify-content:space-between; align-items:center; font-family:'IBM Plex Mono', monospace; font-size:0.85rem; }
+  .card-footer .price{ color:var(--teal); font-weight:500; }
+  .card-link{ color:var(--ink-dim); transition:color .25s ease; }
+  .card:hover .card-link{ color:var(--ochre); }
+
+  /* ---------- STRIP / VALUES (flexbox) ---------- */
+  .values{ background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .value-row{ display:flex; flex-wrap:wrap; gap:1px; background:var(--line); }
+  .value-item{
+    flex:1 1 220px; background:var(--panel); padding:36px 28px;
+    transition:background .3s ease;
+  }
+  .value-item:hover{ background:var(--bg); }
+  .value-item .num{ font-family:'IBM Plex Mono', monospace; color:var(--ochre); font-size:0.85rem; display:block; margin-bottom:14px; }
+  .value-item h4{ font-family:'Fraunces', serif; font-size:1.12rem; margin-bottom:8px; }
+  .value-item p{ color:var(--ink-dim); font-size:0.88rem; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:52px 0 36px; }
+  .foot-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
+  .foot-links{ display:flex; gap:24px; font-size:0.88rem; color:var(--ink-dim); }
+  .foot-links a:hover{ color:var(--teal); }
+  .copyright{ font-size:0.78rem; color:var(--ink-dim); margin-top:26px; font-family:'IBM Plex Mono', monospace; }
+
+  /* ---------- RESPONSIVE MOBILE (Media Query) ---------- */
+  @media (max-width: 860px){
+    .nav-links, .nav-cta{ display:none; }
+    .menu-toggle{ display:flex; }
+    .nav-links.open{
+      display:flex; flex-direction:column;
+      position:absolute; top:100%; left:0; right:0;
+      background:var(--bg); padding:22px 32px; gap:18px; border-bottom:1px solid var(--line);
+    }
+    .hero{ flex-direction:column-reverse; text-align:left; padding:48px 0; }
+    .hero-art{ width:100%; }
+    .section{ padding:52px 0; }
+  }
+
+  @media (max-width: 560px){
+    .wrap{ padding:0 20px; }
+    .nav{ padding:16px 20px; }
+    h1{ font-size:1.8rem; }
+    .cards{ flex-direction:column; }
+    .card{ flex:1 1 auto; }
+    .value-row{ flex-direction:column; }
+    .foot-row{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav wrap">
+    <a href="#" class="brand"><span class="mark"></span> Kertas & Kayu</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#produk">Produk</a>
+      <a href="#nilai">Nilai Kami</a>
+      <a href="#kontak">Kontak</a>
+    </div>
+    <a href="#produk" class="nav-cta">Belanja Sekarang</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Buka menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<section class="hero wrap">
+  <div class="hero-copy">
+    <span class="eyebrow">Studio Alat Tulis · Dibuat Tangan</span>
+    <h1>Menulis lebih<br>bermakna dengan<br><em>kertas & kayu</em>.</h1>
+    <p>Kami membuat buku catatan, pena kayu, dan kertas daur ulang secara manual di bengkel kecil kami — untuk kamu yang masih percaya pada tulisan tangan.</p>
+    <div class="hero-actions">
+      <a href="#produk" class="btn-teal">Lihat Produk</a>
+      <a href="#nilai" class="btn-line">Cerita Kami</a>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="stack">
+      <div class="book b3"></div>
+      <div class="book b2"></div>
+      <div class="book b1"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="produk">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Tiga produk andalan kami</h2>
+      <p>Setiap produk dibuat dari bahan alami dan diperiksa satu per satu sebelum dikirim.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">✎</div>
+        <h3>Buku Catatan Linen</h3>
+        <p>Sampul kain linen tenun, 120 halaman kertas daur ulang bebas asam, cocok untuk jurnal harian maupun sketsa.</p>
+        <div class="card-footer">
+          <span class="price">Rp95.000</span>
+          <a href="#" class="card-link">Lihat detail →</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">✒</div>
+        <h3>Pena Kayu Jati</h3>
+        <p>Diukir dari sisa kayu jati bengkel lokal, dengan mata pena logam yang bisa diisi ulang tintanya.</p>
+        <div class="card-footer">
+          <span class="price">Rp120.000</span>
+          <a href="#" class="card-link">Lihat detail →</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">❧</div>
+        <h3>Set Kertas Pembungkus</h3>
+        <p>Sepuluh lembar kertas seni bermotif alami, dicetak dengan tinta nabati, cocok untuk bingkisan spesial.</p>
+        <div class="card-footer">
+          <span class="price">Rp65.000</span>
+          <a href="#" class="card-link">Lihat detail →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="values" id="nilai">
+  <div class="value-row">
+    <div class="value-item">
+      <span class="num">01</span>
+      <h4>Bahan Alami</h4>
+      <p>Kertas daur ulang dan kayu sisa produksi, tanpa bahan kimia berlebih.</p>
+    </div>
+    <div class="value-item">
+      <span class="num">02</span>
+      <h4>Dibuat Manual</h4>
+      <p>Tidak ada mesin cetak massal — semua dijahit dan diukir tangan.</p>
+    </div>
+    <div class="value-item">
+      <span class="num">03</span>
+      <h4>Produksi Lokal</h4>
+      <p>Diproduksi di bengkel kecil kami, mendukung pengrajin sekitar.</p>
+    </div>
+    <div class="value-item">
+      <span class="num">04</span>
+      <h4>Kemasan Minim</h4>
+      <p>Dikemas dengan kertas daur ulang yang sama dengan produk kami.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="kontak">
+  <div class="wrap">
+    <div class="foot-row">
+      <a href="#" class="brand"><span class="mark"></span> Kertas & Kayu</a>
+      <div class="foot-links">
+        <a href="#produk">Produk</a>
+        <a href="#nilai">Nilai Kami</a>
+        <a href="mailto:halo@kertaskayu.id">halo@kertaskayu.id</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 Kertas & Kayu — Tugas 2, Responsive Website.</p>
+  </div>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }));
+</script>
+
+</body>
+</html>
+
